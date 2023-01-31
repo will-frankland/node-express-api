@@ -10,7 +10,6 @@ router.get("/", (req, res) => {
   res.send(users);
 });
 
-
 // Used to create users
 router.post("/", (req, res) => {
   const user = req.body;
@@ -19,7 +18,6 @@ router.post("/", (req, res) => {
 
   res.send(`User with the username ${user.firstName} added to the database`);
 });
-
 
 // Adding : allows anything to be put after the ID in the url
 // example - /users/2 => would be stored in req.params
@@ -31,8 +29,7 @@ router.get("/:id", (req, res) => {
   res.send(foundUser);
 });
 
-
-router.delete('/:id', (req, res) => {
+router.delete("/:id", (req, res) => {
   const { id } = req.params;
 
   users = users.filter((user) => user.id !== id);
@@ -40,10 +37,17 @@ router.delete('/:id', (req, res) => {
   res.send(`User with the id ${id} deleted from database`);
 });
 
-router.patch('/:id', (req, res) => {
+router.patch("/:id", (req, res) => {
   const { id } = req.params;
+  const { firstName, lastName, age } = req.body;
+  const userFound = users.find((user) => user.id === id);
 
-  const userToBeUpdated = users.find((user) => user.id === id);
-})
+  if(firstName) userFound.firstName = firstName;
+  if(lastName) userFound.lastName = lastName;
+  if(age) userFound.age = age;
+
+  res.send(`User with the id ${id} has been updated`);
+
+});
 
 export default router;
