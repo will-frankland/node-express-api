@@ -20,8 +20,16 @@ router.post('/', (req, res) => {
   res.send(`User with the username ${user.firstName} added to the database`);
 });
 
+
+// Adding : allows anything to be put after the ID in the url
+// /users/2 => would be stored in req.params
+
 router.get('/:id', (req, res) => {
-  res.send('The Get ID route');
+  const { id } = req.params;
+
+  const foundUser = users.find((user) => user.id === id);
+
+  res.send(foundUser);
 });
 
 export default router;
