@@ -1,21 +1,21 @@
 import express from "express";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 const router = express.Router();
 
-const users = [];
+let users = [];
 
 // All routes in here are already starting with /users
-router.get('/', (req, res) => {
-  res.send(users)
+router.get("/", (req, res) => {
+  res.send(users);
 });
 
 
 // Used to create users
-router.post('/', (req, res) => {
-  const user = (req.body);
+router.post("/", (req, res) => {
+  const user = req.body;
 
-  users.push({...user, id: uuidv4() });
+  users.push({ ...user, id: uuidv4() });
 
   res.send(`User with the username ${user.firstName} added to the database`);
 });
@@ -23,13 +23,21 @@ router.post('/', (req, res) => {
 
 // Adding : allows anything to be put after the ID in the url
 // /users/2 => would be stored in req.params
-
-router.get('/:id', (req, res) => {
+router.get("/:id", (req, res) => {
   const { id } = req.params;
 
   const foundUser = users.find((user) => user.id === id);
 
   res.send(foundUser);
 });
+
+
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;
+
+  users = users.filter((user) => user.id !== id);
+
+  res.send(`User with the id ${id} deleted from database`);
+})
 
 export default router;
