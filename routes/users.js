@@ -1,9 +1,11 @@
-import express from express;
+import express from "express";
 
 const router = express.Router();
 
-router.get('/users', () => {
-  resizeBy.send('Hello World!')
+
+// All routes in here are already starting with /users
+router.get('/', (req, res) => {
+  res.send('Hello World!');
 });
 
 export default router;
