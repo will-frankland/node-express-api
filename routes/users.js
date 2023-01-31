@@ -17,14 +17,15 @@ const users = [
 
 // All routes in here are already starting with /users
 router.get('/', (req, res) => {
-  console.log(users);
   res.send(users)
 });
 
 router.post('/', (req, res) => {
-  console.log('Post route reached');
+  const user = (req.body);
 
-  res.send('Post route reached')
+  users.push(user);
+
+  res.send(`User with the username ${user.firstName} added to the database`);
 });
 
 export default router;
