@@ -22,7 +22,7 @@ router.post("/", (req, res) => {
 
 
 // Adding : allows anything to be put after the ID in the url
-// /users/2 => would be stored in req.params
+// example - /users/2 => would be stored in req.params
 router.get("/:id", (req, res) => {
   const { id } = req.params;
 
@@ -38,6 +38,12 @@ router.delete('/:id', (req, res) => {
   users = users.filter((user) => user.id !== id);
 
   res.send(`User with the id ${id} deleted from database`);
+});
+
+router.patch('/:id', (req, res) => {
+  const { id } = req.params;
+
+  const userToBeUpdated = users.find((user) => user.id === id);
 })
 
 export default router;
